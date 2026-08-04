@@ -1,60 +1,101 @@
-<div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 font-sans">
-  <!-- Header & Contact -->
-  <header class="border-b border-gray-200 pb-10 mb-10">
-    <h1 class="text-5xl font-extrabold text-gray-900 tracking-tight"><%= Resume.name %></h1>
-    <p class="text-2xl text-indigo-600 mt-3 font-medium"><%= Resume.title %></p>
+<div class="min-h-screen bg-gray-50 font-sans selection:bg-red-200 selection:text-red-900" data-controller="highlight reveal">
 
-    <div class="flex flex-wrap gap-6 mt-5 text-sm text-gray-600 font-mono">
-      <span class="flex items-center"><%= Resume.location %></span>
-      <span class="flex items-center"><%= Resume.phone %></span>
-      <span class="flex items-center"><a href="mailto:<%= Resume.email %>" class="hover:text-indigo-600 transition-colors"><%= Resume.email %></a></span>
-      <span class="flex items-center"><a href="https://<%= Resume.github %>" class="hover:text-indigo-600 transition-colors" target="_blank"><%= Resume.github %></a></span>
-      <span class="flex items-center"><a href="https://<%= Resume.linkedin %>" class="hover:text-indigo-600 transition-colors" target="_blank"><%= Resume.linkedin %></a></span>
+  <!-- Navigation & Download Bar (Sticky) -->
+  <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex space-x-6 text-sm font-bold text-gray-700">
+        <a href="#summary" class="hover:text-red-600 transition-colors">Summary</a>
+        <a href="#experience" class="hover:text-red-600 transition-colors">Experience</a>
+        <a href="#skills" class="hover:text-red-600 transition-colors">Skills</a>
+      </div>
+      <a href="/Zen_Kulwatcharothai_Resume.pdf" download="Zen_Kulwatcharothai_Resume.pdf" class="inline-flex items-center justify-center px-5 py-2 border border-transparent text-sm font-bold rounded-full text-white bg-red-600 hover:bg-red-700 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 animate-pulse hover:animate-none">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        Download Resume
+      </a>
     </div>
+  </nav>
 
-    <p class="text-lg text-gray-700 mt-6 max-w-4xl leading-relaxed"><%= Resume.summary %></p>
+  <!-- Parallax Hero Section (bg-fixed creates the effect) -->
+  <header id="summary" class="bg-fixed bg-gradient-to-br from-red-700 to-red-900 text-white py-24 px-4 sm:px-6 lg:px-8 shadow-inner relative overflow-hidden">
+    <div class="max-w-6xl mx-auto relative z-10">
+      <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-4 drop-shadow-lg"><%= Resume.name %></h1>
+      <p class="text-xl md:text-3xl text-red-100 font-medium mb-8 max-w-3xl leading-relaxed drop-shadow"><%= Resume.title %></p>
+
+      <div class="flex flex-wrap gap-4 text-sm font-mono text-red-50 bg-black/20 p-4 rounded-xl border border-white/10 w-fit backdrop-blur-md">
+        <span class="flex items-center"><svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg><%= Resume.location %></span>
+        <span class="flex items-center"><a href="mailto:<%= Resume.email %>" class="hover:text-white transition-colors flex items-center"><svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg><%= Resume.email %></a></span>
+        <span class="flex items-center"><a href="https://<%= Resume.linkedin %>" target="_blank" class="hover:text-white transition-colors flex items-center"><svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>LinkedIn Profile</a></span>
+      </div>
+    </div>
   </header>
 
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-    <!-- Experience Column -->
-    <section class="lg:col-span-2">
-      <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-indigo-100 pb-2 inline-block">
-        Experience
-      </h2>
-      <div class="space-y-8">
-        <% Resume.experience.each do |job| %>
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-2">
-              <h3 class="text-2xl font-bold text-gray-900"><%= job['company'] %></h3>
-              <span class="text-sm text-gray-600 font-mono mt-1 sm:mt-0 bg-gray-50 px-3 py-1 rounded-full border border-gray-200"><%= job['period'] %></span>
-            </div>
-            <p class="text-indigo-600 font-semibold mb-4 text-lg"><%= job['role'] %></p>
-            <ul class="space-y-3">
-              <% job['highlights'].each do |highlight| %>
-                <li class="flex items-start">
-                  <span class="text-indigo-400 mr-3 mt-1.5 text-xs">■</span>
-                  <span class="text-gray-700 leading-relaxed"><%= highlight %></span>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-      </div>
-    </section>
+  <div class="max-w-6xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
 
-    <!-- Skills Column -->
-    <section class="lg:col-span-1">
-      <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-indigo-100 pb-2 inline-block">
-        Skills
-      </h2>
-      <div class="space-y-6">
-        <% Resume.skills.each do |skill_group| %>
-          <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-indigo-200 transition-colors">
-            <h3 class="text-lg font-bold text-indigo-900 mb-3"><%= skill_group['category'] %></h3>
-            <p class="text-gray-700 leading-relaxed font-medium"><%= skill_group['list'] %></p>
+    <!-- Summary Card -->
+    <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 mb-16 transform hover:-translate-y-2 transition-all duration-500 relative z-20 -mt-24">
+      <h2 class="text-sm font-bold text-red-600 uppercase tracking-widest mb-4">Professional Summary</h2>
+      <p class="text-gray-700 text-lg leading-relaxed"><%= Resume.summary %></p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+      <!-- Left Column: Experience -->
+      <div id="experience" class="lg:col-span-2 space-y-10 scroll-mt-24">
+        <div>
+          <h2 class="text-3xl font-black text-gray-900 mb-10 border-b-4 border-red-600 pb-2 inline-block">Experience</h2>
+          <div class="space-y-10 border-l-2 border-red-100 pl-6 relative">
+            <% Resume.experience.each do |job| %>
+              <!-- target for reveal controller -->
+              <div data-highlight-target="job" data-reveal-target="item" class="group bg-white p-8 rounded-2xl shadow-sm border border-gray-100 transition-all duration-300 relative">
+                <!-- Timeline Dot -->
+                <div class="absolute w-4 h-4 bg-red-600 rounded-full -left-[1.95rem] top-8 ring-4 ring-white group-hover:scale-125 transition-transform"></div>
+
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-4">
+                  <h3 class="text-2xl font-bold text-gray-900"><%= job['company'] %></h3>
+                  <span class="text-sm text-gray-600 font-mono mt-2 sm:mt-0 bg-red-50 text-red-700 font-bold px-4 py-1.5 rounded-full"><%= job['period'] %></span>
+                </div>
+
+                <p class="text-red-700 font-bold text-xl mb-6 flex items-center">
+                  <%= job['role'] %>
+                  <% if job['location'] %>
+                    <span class="text-sm text-gray-400 font-normal ml-3 tracking-wide border-l border-gray-300 pl-3"><%= job['location'] %></span>
+                  <% end %>
+                </p>
+
+                <% if job['highlights']&.any? %>
+                  <ul class="space-y-4">
+                    <% job['highlights'].each do |highlight| %>
+                      <li class="flex items-start">
+                        <span class="text-red-500 mr-4 mt-1.5 text-sm">✦</span>
+                        <span class="text-gray-700 leading-relaxed"><%= highlight %></span>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            <% end %>
           </div>
-        <% end %>
+        </div>
       </div>
-    </section>
+
+      <!-- Right Column: Sidebar -->
+      <div id="skills" class="space-y-10 scroll-mt-24">
+
+        <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 sticky top-24">
+          <h2 class="text-2xl font-bold text-gray-900 mb-8 border-b-2 border-red-100 pb-2">Technical Skills</h2>
+          <div class="space-y-8">
+            <% Resume.skills.each do |skill_group| %>
+              <div class="p-4 -mx-4 rounded-xl hover:bg-red-50/50 transition-colors cursor-default border border-transparent hover:border-red-100"
+                   data-action="mouseenter->highlight#focus mouseleave->highlight#reset"
+                   data-keywords="<%= skill_group['list'] %>">
+                <h3 class="text-red-700 font-black text-sm uppercase tracking-wider mb-3"><%= skill_group['category'] %></h3>
+                <p class="text-gray-700 text-sm leading-relaxed font-medium"><%= skill_group['list'] %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </div>
