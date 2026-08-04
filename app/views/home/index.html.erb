@@ -1,0 +1,60 @@
+<div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 font-sans">
+  <!-- Header & Contact -->
+  <header class="border-b border-gray-200 pb-10 mb-10">
+    <h1 class="text-5xl font-extrabold text-gray-900 tracking-tight"><%= Resume.name %></h1>
+    <p class="text-2xl text-indigo-600 mt-3 font-medium"><%= Resume.title %></p>
+
+    <div class="flex flex-wrap gap-6 mt-5 text-sm text-gray-600 font-mono">
+      <span class="flex items-center"><%= Resume.location %></span>
+      <span class="flex items-center"><%= Resume.phone %></span>
+      <span class="flex items-center"><a href="mailto:<%= Resume.email %>" class="hover:text-indigo-600 transition-colors"><%= Resume.email %></a></span>
+      <span class="flex items-center"><a href="https://<%= Resume.github %>" class="hover:text-indigo-600 transition-colors" target="_blank"><%= Resume.github %></a></span>
+      <span class="flex items-center"><a href="https://<%= Resume.linkedin %>" class="hover:text-indigo-600 transition-colors" target="_blank"><%= Resume.linkedin %></a></span>
+    </div>
+
+    <p class="text-lg text-gray-700 mt-6 max-w-4xl leading-relaxed"><%= Resume.summary %></p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+    <!-- Experience Column -->
+    <section class="lg:col-span-2">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-indigo-100 pb-2 inline-block">
+        Experience
+      </h2>
+      <div class="space-y-8">
+        <% Resume.experience.each do |job| %>
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-2">
+              <h3 class="text-2xl font-bold text-gray-900"><%= job['company'] %></h3>
+              <span class="text-sm text-gray-600 font-mono mt-1 sm:mt-0 bg-gray-50 px-3 py-1 rounded-full border border-gray-200"><%= job['period'] %></span>
+            </div>
+            <p class="text-indigo-600 font-semibold mb-4 text-lg"><%= job['role'] %></p>
+            <ul class="space-y-3">
+              <% job['highlights'].each do |highlight| %>
+                <li class="flex items-start">
+                  <span class="text-indigo-400 mr-3 mt-1.5 text-xs">■</span>
+                  <span class="text-gray-700 leading-relaxed"><%= highlight %></span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </section>
+
+    <!-- Skills Column -->
+    <section class="lg:col-span-1">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-indigo-100 pb-2 inline-block">
+        Skills
+      </h2>
+      <div class="space-y-6">
+        <% Resume.skills.each do |skill_group| %>
+          <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-indigo-200 transition-colors">
+            <h3 class="text-lg font-bold text-indigo-900 mb-3"><%= skill_group['category'] %></h3>
+            <p class="text-gray-700 leading-relaxed font-medium"><%= skill_group['list'] %></p>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>
