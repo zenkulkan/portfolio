@@ -9,6 +9,30 @@
 
     <%= yield :head %>
 
+    <!-- JSON-LD Structured Data for AI & Search Engines -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "<%= Resume.name %>",
+        "jobTitle": "<%= Resume.title %>",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "<%= Resume.experience.first&.dig('company') %>"
+        },
+        "url": "https://<%= Resume.github %>",
+        "sameAs": [
+          "https://<%= Resume.github %>"
+        ],
+        "knowsAbout": [
+          "Ruby on Rails",
+          "Backend Engineering",
+          "API Performance",
+          "Database Architecture"
+        ]
+      }
+    </script>
+
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
